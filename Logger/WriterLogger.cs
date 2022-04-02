@@ -11,11 +11,15 @@ namespace Logger
 
         public virtual void Log(params string[] messages)
         {
-            foreach(string message in messages)
+            DateTime time = DateTime.Now;
+            writer.Write(time.ToString("yyyy-MM-ddTHH:mm:sszzz") + " ");
+            foreach (string message in messages)
             {
-                writer.WriteLine(message);
-                writer.Flush();
+                writer.Write(message + " ");
             }
+            writer.Write("\n");
+
+            writer.Flush();
         }
 
         public abstract void Dispose();
