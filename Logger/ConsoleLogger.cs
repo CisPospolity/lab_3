@@ -13,7 +13,7 @@ namespace Logger
 
         public override void Dispose()
         {
-            
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -15,7 +15,8 @@ namespace Logger
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this.clientSocket.Close();
+            GC.SuppressFinalize(this);
         }
 
         public void Log(params string[] messages)
@@ -25,12 +26,6 @@ namespace Logger
                 {
                     byte[] requestBytes = Encoding.UTF8.GetBytes(message);
                     clientSocket.Send(requestBytes);
-
-                    byte[] responseBuffer = new byte[1024];
-                    int responseSize = clientSocket.Receive(responseBuffer);
-
-                    string responseText = Encoding.UTF8.GetString(responseBuffer, 0, responseSize);
-                    clientSocket.Close();
                 }
             }
         }
