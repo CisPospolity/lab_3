@@ -15,14 +15,14 @@ namespace Logger
 
         public void Dispose()
         {
-            this.clientSocket.Close();
+            this.clientSocket.Dispose();
             GC.SuppressFinalize(this);
         }
 
         public void Log(params string[] messages)
         {
             foreach (string message in messages) {
-                using (clientSocket)
+              //  using (clientSocket)
                 {
                     byte[] requestBytes = Encoding.UTF8.GetBytes(message);
                     clientSocket.Send(requestBytes);
